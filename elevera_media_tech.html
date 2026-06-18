@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevera Media Tech | Premium ROI-Driven Growth & Automation</title>
+    <!-- Google Fonts - Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#f97316',
+                            yellow: '#eab308',
+                            purple: '#a855f7',
+                            magenta: '#ec4899',
+                            dark: '#05070c'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom styling for Aurora glow, glassmorphism, sliders, and animation keyframes matching EMT_2.png -->
+    <style>
+        /* CSS Variables for Premium Dark Aurora Palette matching the EMT_2.png color schemes */
+        :root {
+            --bg-color: #04060a;
+            --glass-bg: rgba(10, 15, 26, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-orange: #f97316;
+            --accent-purple: #a855f7;
+            --accent-yellow: #eab308;
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Ambient glowing aurora blobs inspired by the EMT_2.png color gradient */
+        .aurora-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Ambient light shading elements */
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.18;
+            mix-blend-mode: screen;
+            animation: pulse-move 20s infinite alternate ease-in-out;
+        }
+
+        /* High quality orange shade */
+        .blob-1 {
+            background: radial-gradient(circle, var(--accent-orange) 0%, rgba(249, 115, 22, 0) 70%);
+            width: 55vw;
+            height: 55vw;
+            top: -10%;
+            right: -5%;
+        }
+
+        /* Violet/Magenta shade */
+        .blob-2 {
+            background: radial-gradient(circle, var(--accent-purple) 0%, rgba(168, 85, 247, 0) 70%);
+            width: 50vw;
+            height: 50vw;
+            bottom: -5%;
+            left: -10%;
+            animation-delay: -5s;
+        }
+
+        /* Bright golden yellow accent shade */
+        .blob-3 {
+            background: radial-gradient(circle, var(--accent-yellow) 0%, rgba(234, 179, 8, 0) 70%);
+            width: 45vw;
+            height: 45vw;
+            top: 35%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes pulse-move {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(6%, 4%) scale(1.12); }
+            100% { transform: translate(-4%, -6%) scale(0.92); }
+        }
+
+        /* Dynamic Grid Mesh Overlay */
+        .bg-grid-mesh {
+            background-image: radial-gradient(rgba(249, 115, 22, 0.015) 1.5px, transparent 1.5px);
+            background-size: 32px 32px;
+        }
+
+        /* Glassmorphic card layouts */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+        }
+
+        .glass-nav {
+            background: rgba(4, 6, 10, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* Interactive orange/purple cursor follow glow */
+        #interactive-glow {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, rgba(168, 85, 247, 0.04) 45%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        /* Smooth scroll reveal effect */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Magnetic button logic transitioning rules */
+        .magnetic-btn {
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Styling custom Range Sliders with EMT themes */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-purple) 100%);
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
+            transition: transform 0.15s ease;
+        }
+
+        /* Hide scrollbar for horizontal video showcase */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-grid-mesh">
+
+    <!-- Active Ambient Aurora Shifting Layers -->
+    <div class="aurora-container">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <!-- Interactive Cursor Glow Tracer -->
+    <div id="interactive-glow"></div>
+
+    <!-- Frosted Navigation Bar -->
+    <nav class="glass-nav fixed top-0 w-full z-50 px-6 md:px-12 py-3.5 flex justify-between items-center">
+        <!-- Brand identity text logo on the Left -->
+        <a href="#" class="font-display flex flex-col leading-tight select-none">
+            <span class="text-white font-extrabold uppercase tracking-tight text-lg md:text-xl">Elevera</span>
+            <span class="text-slate-400 font-light text-[10px] md:text-xs tracking-widest uppercase">Media Tech</span>
+        </a>
+
+        <!-- Menu links & Image logo on the Right -->
+        <div class="flex items-center gap-4 md:gap-8">
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#services" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</a>
+                <a href="#roi-calculator" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">ROI Calculator</a>
+                <a href="#packages" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Packages</a>
+                <a href="#audit" class="magnetic-btn px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white text-xs font-bold hover:opacity-90 transition-all hover:scale-105 shadow-md shadow-orange-500/10">Free Strategy Audit</a>
+            </div>
+
+            <!-- Beautiful Brand Logo Frame - Resized to w-20 h-20 for more prominence -->
+            <div class="relative w-20 h-20 rounded-2xl bg-slate-950/80 p-2 border border-white/10 flex items-center justify-center overflow-hidden shadow-inner">
+                <img src="EMT_2.png" alt="Elevera Media Tech Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/ffffff?text=EMT';">
+            </div>
+
+            <!-- Mobile Navigation Trigger -->
+            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-btn">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-lg flex-col justify-center items-center gap-8 text-2xl font-display font-semibold text-white">
+        <button class="absolute top-6 right-6 text-white text-3xl" id="close-menu-btn">&times;</button>
+        <a href="#services" class="hover:text-orange-400 transition-colors">Services</a>
+        <a href="#roi-calculator" class="hover:text-orange-400 transition-colors">ROI Calculator</a>
+        <a href="#packages" class="hover:text-orange-400 transition-colors">Packages</a>
+        <a href="#audit" class="px-6 py-3 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white text-lg font-bold">Get Free Audit</a>
+    </div>
+
+    <!-- Hero / Showcase Section -->
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 md:px-12 pt-32 pb-20 text-center overflow-hidden">
+        
+        <!-- Giant Faded Background Logo -->
+        <div class="absolute inset-0 flex justify-center items-center opacity-[0.03] pointer-events-none z-0">
+            <img src="EMT_2.png" class="w-[80vw] max-w-2xl object-contain" alt="Background Logo">
+        </div>
+
+        <div class="max-w-4xl relative z-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-xs font-semibold text-orange-400 mb-8 tracking-wider uppercase border border-orange-500/20">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> 100% Data-Proven Solutions Only
+            </div>
+            <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-tight">
+                We Engineer <br class="hidden sm:inline">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-purple-400 to-pink-400">Digital Revenue at Scale.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Zero guessing. Zero superficial metrics. We construct high-converting landing architectures and multi-channel automation sequences to grow your business natively.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#audit" class="magnetic-btn w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-white font-bold tracking-wide transition-all hover:scale-105 shadow-lg shadow-orange-500/20 text-center">
+                    Claim Free Strategy Audit
+                </a>
+                <a href="#roi-calculator" class="magnetic-btn w-full sm:w-auto px-8 py-4 rounded-full glass-panel text-white hover:bg-white/10 font-bold tracking-wide transition-all text-center">
+                    Calculate My ROI Upside
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs text-slate-400">
+            <span>Scroll to Discover</span>
+            <div class="w-5 h-9 rounded-full border border-slate-700 flex justify-center p-1.5">
+                <div class="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Banner -->
+    <section class="py-12 border-y border-slate-900 bg-slate-950/30 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">Trusted by modern companies nationwide</span>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 hover:opacity-90 transition-opacity">
+                <span class="font-display font-bold text-lg tracking-tight text-white/80">RELIANCE GROUP</span>
+                <span class="font-display font-bold text-lg tracking-tight text-white/80">TATA VENTURES</span>
+                <span class="font-display font-bold text-lg tracking-tight text-white/80">CADBURY IN</span>
+                <span class="font-display font-bold text-lg tracking-tight text-white/80">GODREJ IND</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Performance Video Showcase -->
+    <section class="py-24 max-w-7xl mx-auto px-6 relative z-10" id="showcase">
+        <div class="text-center mb-16 reveal">
+            <span class="text-xs font-bold uppercase tracking-widest text-orange-400">Our Performance Frameworks</span>
+            <h2 class="font-display text-3xl md:text-5xl font-bold text-white mt-2">Scale Through Strategic Content</h2>
+        </div>
+        
+        <!-- Horizontal Scrollable Container for 4 Videos -->
+        <div class="flex overflow-x-auto gap-6 pb-8 snap-x scrollbar-hide">
+            <!-- Video 1 -->
+            <div class="min-w-[200px] md:min-w-[240px] glass-panel rounded-3xl p-4 border-white/5 reveal snap-start">
+                <div class="aspect-[9/16] bg-slate-900/50 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden">
+                    <video class="w-full h-full object-cover" autoplay loop muted playsinline preload="auto">
+                        <source src="vid1.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <!-- Video 2 -->
+            <div class="min-w-[200px] md:min-w-[240px] glass-panel rounded-3xl p-4 border-white/5 reveal snap-start">
+                <div class="aspect-[9/16] bg-slate-900/50 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden">
+                    <video class="w-full h-full object-cover" autoplay loop muted playsinline preload="auto">
+                        <source src="vid2.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <!-- Video 3 -->
+            <div class="min-w-[200px] md:min-w-[240px] glass-panel rounded-3xl p-4 border-white/5 border-white/5 reveal snap-start">
+                <div class="aspect-[9/16] bg-slate-900/50 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden">
+                    <video class="w-full h-full object-cover" autoplay loop muted playsinline preload="auto">
+                        <source src="vid3.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <!-- Video 4 -->
+            <div class="min-w-[200px] md:min-w-[240px] glass-panel rounded-3xl p-4 border-white/5 border-white/5 reveal snap-start">
+                <div class="aspect-[9/16] bg-slate-900/50 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden">
+                    <video class="w-full h-full object-cover" autoplay loop muted playsinline preload="auto">
+                        <source src="vid4.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid section -->
+    <section class="py-24 max-w-7xl mx-auto px-6 relative z-10" id="services">
+        <div class="text-center mb-16 reveal">
+            <span class="text-xs font-bold uppercase tracking-widest text-orange-400">High-ROI Execution Frameworks</span>
+            <h2 class="font-display text-3xl md:text-5xl font-bold text-white mt-2">Our Performance Service Suite</h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto font-light">We eliminate marketing friction points. Choose the specific mechanism to unlock immediate revenue.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="glass-panel rounded-3xl p-8 hover:scale-[1.02] hover:bg-slate-900/40 transition-all duration-300 border-white/5 reveal">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/10 to-purple-500/10 border border-orange-500/20 flex items-center justify-center text-xl mb-6 shadow-sm">⚡</div>
+                <h3 class="font-display text-xl font-bold text-white mb-3">Automated Checkout Recovery</h3>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Reclaim lost revenue instantly. We engineer real-time WhatsApp and email automation sequences that engage cart abandoners within 15 minutes, transforming lost interest into guaranteed sales.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-panel rounded-3xl p-8 hover:scale-[1.02] hover:bg-slate-900/40 transition-all duration-300 border-white/5 reveal">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/10 to-purple-500/10 border border-orange-500/20 flex items-center justify-center text-xl mb-6 shadow-sm">📈</div>
+                <h3 class="font-display text-xl font-bold text-white mb-3">Performance Ad Bundles</h3>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Stop burning money on general traffic. We couple hyper-targeted Meta & Google paid campaigns with high-conversion standalone landing pages to drastically multiply your active conversion rates.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-panel rounded-3xl p-8 hover:scale-[1.02] hover:bg-slate-900/40 transition-all duration-300 border-white/5 reveal">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/10 to-purple-500/10 border border-orange-500/20 flex items-center justify-center text-xl mb-6 shadow-sm">📍</div>
+                <h3 class="font-display text-xl font-bold text-white mb-3">Hyper-Local Maps SEO</h3>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Dominating localized buyer search intent. We optimize your business layout engine and review funnels to plant your brand firmly within the top 3 spots on Google Maps for local foot traffic.</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="glass-panel rounded-3xl p-8 hover:scale-[1.02] hover:bg-slate-900/40 transition-all duration-300 border-white/5 reveal">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/10 to-purple-500/10 border border-orange-500/20 flex items-center justify-center text-xl mb-6 shadow-sm">🧪</div>
+                <h3 class="font-display text-xl font-bold text-white mb-3">Conversion Optimization</h3>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Maximize your current platform capability. By tracking digital user heatmaps and administering clear A/B interface testing, we systematically double your checkout efficiency without expanding ad spend.</p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="glass-panel rounded-3xl p-8 hover:scale-[1.02] hover:bg-slate-900/40 transition-all duration-300 border-white/5 reveal">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/10 to-purple-500/10 border border-orange-500/20 flex items-center justify-center text-xl mb-6 shadow-sm">🧠</div>
+                <h3 class="font-display text-xl font-bold text-white mb-3">AI-Engine Optimization (AEO)</h3>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Future-proof your discoverability. We restructure your public digital data models and FAQs so modern AI systems confidently index and feature your brand as the definitive answers option.</p>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="glass-panel rounded-3xl p-8 hover:scale-[1.02] hover:bg-slate-900/40 transition-all duration-300 border-white/5 reveal">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/10 to-purple-500/10 border border-orange-500/20 flex items-center justify-center text-xl mb-6 shadow-sm">⚙️</div>
+                <h3 class="font-display text-xl font-bold text-white mb-3">Data Infrastructure & CRM</h3>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Bridge the divide between clicks and closures. We integrate intelligent CRM automation tools that instant-verify inbound sales leads, routing them directly to your backend sales pipelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Package structure section -->
+    <section class="py-24 max-w-7xl mx-auto px-6 relative z-10" id="packages">
+        <div class="text-center mb-16 reveal">
+            <span class="text-xs font-bold uppercase tracking-widest text-orange-400">Structured Packages</span>
+            <h2 class="font-display text-3xl md:text-5xl font-bold text-white mt-2">Transparent Client Tiers</h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto font-light">Pick the specific mechanism configured to unlock immediate revenue for your brand.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            <!-- Card 1 -->
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 border-white/5 reveal relative overflow-hidden group">
+                <div>
+                    <div class="absolute top-6 right-6 text-xs font-semibold text-orange-400 uppercase tracking-widest">Starter Tier</div>
+                    <div class="w-12 h-12 rounded-2xl bg-slate-950 flex items-center justify-center text-xl mb-6 shadow-sm border border-white/5">📍</div>
+                    <h3 class="font-display text-2xl font-bold text-white mb-2">Local Market Dominator</h3>
+                    <p class="text-sm text-slate-400 font-light mb-8">Ideal for local clinics, gyms, salons, and real estate offices looking to capture nearby foot traffic.</p>
+                    <div class="h-[1px] bg-slate-900 w-full mb-8"></div>
+                    <ul class="space-y-4 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Google Maps (GMB) Optimization</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>8 custom Reels/Shorts per Month</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Automated Review Funnel SMS Setup</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Competitor Keyword Mapping</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Monthly Traffic Reports</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <span class="text-xs text-slate-500 line-through">Regular Price: ₹35,000</span>
+                        <div class="text-3xl font-bold text-white font-display mt-1">₹24,999 <span class="text-sm font-normal text-slate-400">/ mo</span></div>
+                    </div>
+                    <a href="#audit" class="magnetic-btn block w-full text-center py-3 rounded-xl bg-gradient-to-r from-orange-500 to-purple-600 hover:opacity-90 text-white font-semibold transition-all shadow-sm">Get Started</a>
+                    <span class="block text-center text-[10px] text-slate-500 mt-3 uppercase tracking-widest">🔒 Min. 3-Month Commitment</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between hover:scale-[1.02] border-orange-500/30 hover:border-orange-500/60 transition-all duration-300 relative group reveal shadow-lg shadow-orange-500/10">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-orange-500 to-purple-600 text-[10px] font-bold uppercase tracking-widest text-white shadow-sm">Most Popular</div>
+                <div>
+                    <div class="absolute top-6 right-6 text-xs font-semibold text-orange-300 uppercase tracking-widest">Flagship Tier</div>
+                    <div class="w-12 h-12 rounded-2xl bg-slate-950 flex items-center justify-center text-xl mb-6 shadow-sm border border-orange-500/10">🔥</div>
+                    <h3 class="font-display text-2xl font-bold text-white mb-2">The Revenue Multiplier</h3>
+                    <p class="text-sm text-slate-400 font-light mb-8">Ideal for growing e-commerce stores, D2C brands, and digital service providers ready to scale fast.</p>
+                    <div class="h-[1px] bg-slate-900 w-full mb-8"></div>
+                    <ul class="space-y-4 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>1x Glassmorphic Landing Page Funnel</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Meta & Google Paid Ad Architecture</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>12 High-Intent Ad Creatives / mo</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Cart Recovery (WhatsApp Automation)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Routine A/B Conversion Testing</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <span class="text-xs text-slate-500 line-through">Regular Price: ₹75,000</span>
+                        <div class="text-3xl font-bold text-white font-display mt-1">₹49,999 <span class="text-sm font-normal text-slate-400">/ mo</span></div>
+                    </div>
+                    <a href="#audit" class="magnetic-btn block w-full text-center py-3 rounded-xl bg-gradient-to-r from-orange-500 to-purple-600 text-white font-bold transition-all shadow-md">Scale Now</a>
+                    <span class="block text-center text-[10px] text-slate-500 mt-3 uppercase tracking-widest">🔒 Min. 3-Month Commitment</span>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 border-white/5 reveal relative overflow-hidden group">
+                <div>
+                    <div class="absolute top-6 right-6 text-xs font-semibold text-orange-400 uppercase tracking-widest">Enterprise Tier</div>
+                    <div class="w-12 h-12 rounded-2xl bg-slate-950 flex items-center justify-center text-xl mb-6 shadow-sm border border-white/5">👑</div>
+                    <h3 class="font-display text-2xl font-bold text-white mb-2">Next-Gen Omnichannel</h3>
+                    <p class="text-sm text-slate-400 font-light mb-8">Ideal for corporate brands, multi-location franchises, and funded startups hunting for absolute dominance.</p>
+                    <div class="h-[1px] bg-slate-900 w-full mb-8"></div>
+                    <ul class="space-y-4 text-sm text-slate-300 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Everything in Tiers 1 & 2</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>AI Engine (ChatGPT/Gemini) Search Optimization</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>CRO Heatmap Interface Audit</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>CRM Pipeline Sales Automation</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Full Sourced Influencer Operations</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <span class="text-xs text-slate-500 line-through">Regular Price: ₹1,50,000</span>
+                        <div class="text-3xl font-bold text-white font-display mt-1">₹99,999 <span class="text-sm font-normal text-slate-400">/ mo</span></div>
+                    </div>
+                    <a href="#audit" class="magnetic-btn block w-full text-center py-3 rounded-xl bg-gradient-to-r from-orange-500 to-purple-600 hover:opacity-90 text-white font-semibold transition-all shadow-sm">Unleash Expansion</a>
+                    <span class="block text-center text-[10px] text-slate-500 mt-3 uppercase tracking-widest">🔒 Min. 6-Month Commitment</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive ROI Calculator -->
+    <section class="py-24 bg-slate-950/20 border-y border-slate-900 relative z-10" id="roi-calculator">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-xs font-bold uppercase tracking-widest text-orange-400">Prove the value first</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-white mt-2">Dynamic Revenue Growth Estimator</h2>
+                <p class="text-slate-400 mt-3 max-w-lg mx-auto font-light">Drag the sliders to estimate how much "hidden" revenue Elevera Media Tech can recover for your business.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center glass-panel p-8 md:p-12 rounded-3xl border-white/5 reveal">
+                <!-- Inputs -->
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <span class="text-slate-300">Monthly Website Traffic</span>
+                            <span class="text-orange-400 font-bold" id="traffic-val">50,000 visitors</span>
+                        </div>
+                        <input type="range" id="traffic-slider" min="5000" max="200000" step="5000" value="50000" class="w-full h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <span class="text-slate-300">Current Conversion Rate</span>
+                            <span class="text-orange-400 font-bold" id="conversion-val">1.5%</span>
+                        </div>
+                        <input type="range" id="conversion-slider" min="0.5" max="5.0" step="0.1" value="1.5" class="w-full h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-semibold mb-2">
+                            <span class="text-slate-300">Average Order Value (AOV)</span>
+                            <span class="text-orange-400 font-bold" id="aov-val">₹2,500</span>
+                        </div>
+                        <input type="range" id="aov-slider" min="500" max="10000" step="100" value="2500" class="w-full h-1 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Live Estimated Output -->
+                <div class="bg-slate-950/60 border border-white/10 rounded-2xl p-8 text-center relative overflow-hidden shadow-sm">
+                    <div class="absolute w-40 h-40 bg-orange-500/10 rounded-full blur-3xl -top-10 -right-10"></div>
+                    <span class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Your Recovered Annual Revenue</span>
+                    <div class="text-4xl md:text-5xl font-bold font-display text-white mt-4 tracking-tight" id="recovered-revenue-box">₹1,12,50,000</div>
+                    <p class="text-xs text-slate-400 mt-3 font-light leading-relaxed">
+                        *Estimated based on applying standard 15% abandoned cart recovery + 1% Conversion Rate Optimization (CRO) increases.
+                    </p>
+                    <div class="h-[1px] bg-slate-900 my-6"></div>
+                    <a href="#audit" class="magnetic-btn inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-purple-600 text-white text-sm font-bold tracking-wide transition-all shadow-md">Capture This Revenue Upside</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Panel -->
+    <section class="py-24 max-w-7xl mx-auto px-6 relative z-10" id="case-studies">
+        <div class="text-center mb-16 reveal">
+            <span class="text-xs font-bold uppercase tracking-widest text-orange-400">Documented Outcomes</span>
+            <h2 class="font-display text-3xl md:text-5xl font-bold text-white mt-2">Our Performance Case Studies</h2>
+            <p class="text-slate-400 mt-4 max-w-lg mx-auto font-light">We don't sell stories. We share numbers and transparent metrics.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Case Study 1 -->
+            <div class="glass-panel rounded-3xl overflow-hidden group reveal border-white/5">
+                <div class="p-8 md:p-12">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-orange-400">E-Commerce Fashion</span>
+                    <h3 class="font-display text-2xl md:text-3xl font-bold text-white mt-2 mb-6">Scaling Sustainable Jacket Brand Past ₹2.5 Crore Sales</h3>
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="p-4 bg-slate-950/60 border border-white/5 rounded-xl text-center shadow-sm">
+                            <div class="text-xs text-slate-400">ROAS</div>
+                            <div class="text-xl md:text-2xl font-bold text-white font-display mt-1">4.8x</div>
+                        </div>
+                        <div class="p-4 bg-slate-950/60 border border-white/5 rounded-xl text-center shadow-sm">
+                            <div class="text-xs text-slate-400">AOV Jump</div>
+                            <div class="text-xl md:text-2xl font-bold text-white font-display mt-1">+35%</div>
+                        </div>
+                        <div class="p-4 bg-slate-950/60 border border-white/5 rounded-xl text-center shadow-sm">
+                            <div class="text-xs text-slate-400">Cart Saves</div>
+                            <div class="text-xl md:text-2xl font-bold text-white font-display mt-1">18.4%</div>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        By designing a custom glassmorphic mobile landing page and syncing programmatic WhatsApp reminders, we captured lost high-intent buyers, completely transforming their conversion funnel.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case Study 2 -->
+            <div class="glass-panel rounded-3xl overflow-hidden group reveal border-white/5">
+                <div class="p-8 md:p-12">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-orange-400">Healthcare / Cosmetics</span>
+                    <h3 class="font-display text-2xl md:text-3xl font-bold text-white mt-2 mb-6">Dominating Local Inbound Botox Leads in Bangalore</h3>
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="p-4 bg-slate-950/60 border border-white/5 rounded-xl text-center shadow-sm">
+                            <div class="text-xs text-slate-400">Leads / mo</div>
+                            <div class="text-xl md:text-2xl font-bold text-white font-display mt-1">340+</div>
+                        </div>
+                        <div class="p-4 bg-slate-950/60 border border-white/5 rounded-xl text-center shadow-sm">
+                            <div class="text-xs text-slate-400">CPA Drop</div>
+                            <div class="text-xl md:text-2xl font-bold text-white font-display mt-1">-42%</div>
+                        </div>
+                        <div class="p-4 bg-slate-950/60 border border-white/5 rounded-xl text-center shadow-sm">
+                            <div class="text-xs text-slate-400">Reviews</div>
+                            <div class="text-xl md:text-2xl font-bold text-white font-display mt-1">120+</div>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm font-light leading-relaxed">
+                        Through strict Local Map Pack structure optimization and setting up automated customer feedback systems, we took this med-spa to the #1 ranking spot on Google Maps in under 45 days.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Video Audit / CRM Form -->
+    <section class="py-24 bg-slate-950/20 border-t border-slate-900 relative z-10" id="audit">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="glass-panel rounded-3xl p-8 md:p-16 relative overflow-hidden border-white/5 reveal">
+                <div class="absolute w-80 h-80 bg-orange-500/10 rounded-full blur-3xl -top-20 -left-20 pointer-events-none"></div>
+                <div class="relative z-10 text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-orange-400">Get Free Value First</span>
+                    <h2 class="font-display text-3xl md:text-5xl font-bold text-white mt-2">Request Your Free 3-Min Audit Video</h2>
+                    <p class="text-slate-400 mt-4 font-light">
+                        No boring meetings or generic PDFs. We will record our screen showing your website, pointing out exact leaks and how to plug them.
+                    </p>
+                </div>
+
+                <form class="space-y-6 relative z-10" onsubmit="event.preventDefault(); document.getElementById('success-msg').classList.remove('hidden');">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-slate-400 font-semibold mb-2">Name</label>
+                            <input type="text" required class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors" placeholder="Alex Carter">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-slate-400 font-semibold mb-2">Work Email</label>
+                            <input type="email" required class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors" placeholder="alex@company.com">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-slate-400 font-semibold mb-2">Website URL</label>
+                            <input type="url" required class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors" placeholder="https://yourcompany.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-slate-400 font-semibold mb-2">Target Monthly Goal</label>
+                            <select class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500 transition-colors">
+                                <option class="bg-slate-900 text-white">Increase Store Sales (+20%+)</option>
+                                <option class="bg-slate-900 text-white">Get More Local Phone Leads</option>
+                                <option class="bg-slate-900 text-white">Optimize My Abandoned Cart Recovery</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="magnetic-btn w-full py-4 rounded-xl bg-gradient-to-r from-orange-500 to-purple-600 text-white font-bold tracking-wide transition-all shadow-md">
+                        Send Me My Personalized Audit
+                    </button>
+                    <!-- Simulated success notification -->
+                    <div class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm text-center font-medium mt-4 transition-all" id="success-msg">
+                        ✓ Audit request submitted! Our strategy team will analyze your site and email your video walk-through within 24 hours.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="py-12 border-t border-slate-900 relative z-10 text-center bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col items-center justify-center mb-6">
+                <!-- Using EMT_2.png in the footer structure - Resized Larger (w-24 h-24) -->
+                <div class="w-24 h-24 rounded-3xl bg-slate-950/80 p-2 border border-white/10 flex items-center justify-center mb-4 overflow-hidden">
+                    <img src="EMT_2.png" alt="Elevera Media Tech Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e293b/ffffff?text=EMT';">
+                </div>
+                <h4 class="font-display text-2xl font-bold text-white tracking-tight uppercase">Elevera <span class="text-slate-400 font-light">Media Tech</span></h4>
+            </div>
+            
+            <p class="text-slate-400 text-sm font-light max-w-md mx-auto mb-8">
+                Helping modern brands scale predictable, profitable revenue through cutting-edge, data-driven performance marketing architectures.
+            </p>
+            
+            <!-- Direct Founder Contacts -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-8 text-sm text-slate-300">
+                <a href="mailto:eleveramediatech@gmail.com" class="flex items-center gap-2.5 hover:text-orange-400 transition-colors group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-orange-500/30 transition-all">
+                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 00-2-2H5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <span>eleveramediatech@gmail.com</span>
+                </a>
+                <a href="mailto:kotwalayush23@gmail.com" class="flex items-center gap-2.5 hover:text-orange-400 transition-colors group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-orange-500/30 transition-all">
+                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <span>kotwalayush23@gmail.com</span>
+                </a>
+                <a href="mailto:raghavsharma231@gmail.com" class="flex items-center gap-2.5 hover:text-orange-400 transition-colors group">
+                    <div class="w-8 h-8 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center group-hover:border-orange-500/30 transition-all">
+                        <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <span>raghavsharma231@gmail.com</span>
+                </a>
+            </div>
+
+            <div class="flex justify-center gap-6 text-xs text-slate-500 mb-8">
+                <a href="#" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-300 transition-colors">Terms of Service</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-300 transition-colors">Support Channels</a>
+            </div>
+            <p class="text-[11px] text-slate-600 font-light">&copy; 2026 Elevera Media Tech. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Dynamic Interface Script Operations -->
+    <script>
+        // Custom ambient glow position tracer matching the Orange shade of EMT logo
+        const glowElement = document.getElementById('interactive-glow');
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            glowElement.style.left = `${x}px`;
+            glowElement.style.top = `${y}px`;
+        });
+
+        // Magnetic Button Effect setup
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) scale(1.03)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+
+        // Interactive Calculator Math Operations
+        const trafficSlider = document.getElementById('traffic-slider');
+        const conversionSlider = document.getElementById('conversion-slider');
+        const aovSlider = document.getElementById('aov-slider');
+
+        const trafficVal = document.getElementById('traffic-val');
+        const conversionVal = document.getElementById('conversion-val');
+        const aovVal = document.getElementById('aov-val');
+        const recoveredRevenueBox = document.getElementById('recovered-revenue-box');
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function calculateROI() {
+            const traffic = parseInt(trafficSlider.value);
+            const conversion = parseFloat(conversionSlider.value) / 100;
+            const aov = parseInt(aovSlider.value);
+
+            trafficVal.textContent = `${traffic.toLocaleString()} visitors`;
+            conversionVal.textContent = `${(conversion * 100).toFixed(1)}%`;
+            aovVal.textContent = `₹${aov.toLocaleString()}`;
+
+            // ROI logic: +1% CRO jump + 15% recovery improvement
+            const currentRevenue = traffic * conversion * aov;
+            const improvedConversion = conversion + 0.01;
+            const improvedRevenue = traffic * improvedConversion * aov;
+            const standardRevenueWithCartSaves = improvedRevenue * 1.15;
+
+            const yearlyRecoveredUpside = (standardRevenueWithCartSaves - currentRevenue) * 12;
+
+            recoveredRevenueBox.textContent = formatCurrency(Math.round(yearlyRecoveredUpside));
+        }
+
+        trafficSlider.addEventListener('input', calculateROI);
+        conversionSlider.addEventListener('input', calculateROI);
+        aovSlider.addEventListener('input', calculateROI);
+        calculateROI(); // Initial calculator generation on load
+
+        // Mobile Menu Drawer Controls
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+        });
+
+        const closeDrawer = () => {
+            mobileMenu.classList.remove('flex');
+            mobileMenu.classList.add('hidden');
+        };
+
+        closeMenuBtn.addEventListener('click', closeDrawer);
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeDrawer);
+        });
+
+        // Scroll reveal logic
+        const revealElements = document.querySelectorAll('.reveal');
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(elem => {
+                const elementTop = elem.getBoundingClientRect().top;
+                if (elementTop < windowHeight * 0.85) {
+                    elem.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+        // Ensure all videos run flawlessly in auto mode without promise conflict errors
+        document.addEventListener('DOMContentLoaded', () => {
+            const videos = document.querySelectorAll('video');
+            const playPromises = new Map();
+
+            function safePlay(video) {
+                if (playPromises.has(video)) return;
+                const promise = video.play();
+                if (promise !== undefined) {
+                    playPromises.set(video, promise);
+                    promise.then(() => {
+                        playPromises.delete(video);
+                    }).catch((error) => {
+                        playPromises.delete(video);
+                        // Silently ignore abort warnings as they are expected when scrolling quickly
+                        if (error.name !== 'AbortError') {
+                            console.debug("Playback initialization adjusted:", error);
+                        }
+                    });
+                }
+            }
+
+            function safePause(video) {
+                const promise = playPromises.get(video);
+                if (promise) {
+                    promise.then(() => {
+                        video.pause();
+                    }).catch(() => {});
+                } else {
+                    video.pause();
+                }
+            }
+
+            videos.forEach((video) => {
+                video.muted = true;
+                video.autoplay = true;
+                video.loop = true;
+                video.playsInline = true;
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                safePlay(video);
+            });
+
+            // Resilient scroll watcher to auto-trigger playback when visible
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const video = entry.target;
+                        if (entry.isIntersecting) {
+                            safePlay(video);
+                        } else {
+                            safePause(video);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                videos.forEach(video => observer.observe(video));
+            }
+        });
+    </script>
+</body>
+</html>
